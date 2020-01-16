@@ -115,7 +115,7 @@ function App() {
       <main>
         <ul>
           {devs.map(dev => (
-            <li className="dev-item">
+            <li key={dev._id} className="dev-item">
             <header>
               <img src={dev.avatar_url} alt={dev.name} />
                 <div className="user-info">
