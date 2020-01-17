@@ -1,5 +1,8 @@
 import React,{ useState, useEffect } from 'react';
+
 import api from "./services/api";
+
+import DevItem from "./components/DevItem";
 
 import "./global.css";
 import "./App.css";
@@ -24,8 +27,8 @@ function App() {
         setLatitude(latitude);
         setLongitude(longitude);
       },
-      (error) => {
-        alert(error);
+      (err) => {
+        console.log(err);
       },{
         timeout: 30000,
       }
@@ -53,6 +56,8 @@ function App() {
 
     setGithub_username("");
     setTechs("");
+
+    setDevs([...devs,response.data]);
   }
 
   return (
@@ -115,21 +120,12 @@ function App() {
       <main>
         <ul>
           {devs.map(dev => (
-            <li key={dev._id} className="dev-item">
-            <header>
-              <img src={dev.avatar_url} alt={dev.name} />
-                <div className="user-info">
-                  <strong>{dev.name}</strong>
-                  <span>{dev.techs.join(",")}</span>
-                </div>
-            </header>
-            <p>{dev.bio}</p>
-            <a href={`https://github.com/${dev.github_username}`}>Acessar perfil no github</a>
-            </li>
+            <DevItem key={dev._id} dev={dev}/>
           ))}
         </ul>
-      </main>
+      </main>                      
     </div>
+    
   );
 }
 
